@@ -23,7 +23,7 @@ public Plugin myinfo =
 	name = "SM ExoJump Boots Giver",
 	author = "Franc1sco franug",
 	description = "",
-	version = "1.0.1",
+	version = "1.0.2",
 	url = "http://steamcommunity.com/id/franug"
 };
 
@@ -35,14 +35,24 @@ public void OnPluginStart()
 public Action Command_ExoJump(int client, int args)
 {
 
-	if(args < 1) // Not enough parameters
+	if(args < 2) // Not enough parameters
 	{
-		ReplyToCommand(client, "[SM] Use: sm_exojump <#userid|name>");
+		ReplyToCommand(client, "[SM] Use: sm_exojump <#userid|name> <0-1>");
 		return Plugin_Handled;
 	}
 
 
 	char strTarget[32]; GetCmdArg(1, strTarget, sizeof(strTarget)); 
+	
+	char strEnable[32]; GetCmdArg(2, strEnable, sizeof(strEnable)); 
+	
+	int enable = StringToInt(strEnable);
+	
+	if(enable > 1 || enable < 0)
+	{
+		ReplyToCommand(client, "[SM] Use: sm_exojump <#userid|name> <0-1>");
+		return Plugin_Handled;
+	}
 
 	// Process the targets 
 	char strTargetName[MAX_TARGET_LENGTH]; 
@@ -62,8 +72,8 @@ public Action Command_ExoJump(int client, int args)
 		int iClient = TargetList[i]; 
 		if (IsClientInGame(iClient) && IsPlayerAlive(iClient)) 
 		{
-			SetEntProp(client, Prop_Send, "m_passiveItems", 1, 1, 1);
-			ReplyToCommand(client, "Player %N received exojump",iClient);
+			SetEntProp(client, Prop_Send, "m_passiveItems", enable, 1, 1);
+			ReplyToCommand(client, "Player %N %s exojump", iClient, enable==1?"received":"removed");
 		} 
 	}
 
