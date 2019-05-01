@@ -23,7 +23,7 @@ public Plugin myinfo =
 	name = "SM ExoJump Boots Giver",
 	author = "Franc1sco franug",
 	description = "",
-	version = "1.0",
+	version = "1.0.1",
 	url = "http://steamcommunity.com/id/franug"
 };
 
@@ -62,32 +62,10 @@ public Action Command_ExoJump(int client, int args)
 		int iClient = TargetList[i]; 
 		if (IsClientInGame(iClient) && IsPlayerAlive(iClient)) 
 		{
-			GiveExoJump(iClient);
+			SetEntProp(client, Prop_Send, "m_passiveItems", 1, 1, 1);
 			ReplyToCommand(client, "Player %N received exojump",iClient);
 		} 
 	}
 
 	return Plugin_Handled;
-}
-
-stock void GiveExoJump(int iClient)
-{
-	SetCvar("sv_cheats", 1);
-	FakeClientCommand(iClient, "exojump");
-	SetCvar("sv_cheats", 0);
-}
-
-stock void SetCvar(char cvarName[64], int value)
-{
-	Handle IntCvar = FindConVar(cvarName);
-	if (IntCvar == null) return;
-
-	int flags = GetConVarFlags(IntCvar);
-	flags &= ~FCVAR_NOTIFY;
-	SetConVarFlags(IntCvar, flags);
-
-	SetConVarInt(IntCvar, value);
-
-	flags |= FCVAR_NOTIFY;
-	SetConVarFlags(IntCvar, flags);
 }
