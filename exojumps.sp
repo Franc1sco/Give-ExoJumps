@@ -23,7 +23,7 @@ public Plugin myinfo =
 	name = "SM ExoJump Boots Giver",
 	author = "Franc1sco franug",
 	description = "",
-	version = "1.0.2",
+	version = "1.0.3",
 	url = "http://steamcommunity.com/id/franug"
 };
 
@@ -72,7 +72,7 @@ public Action Command_ExoJump(int client, int args)
 		int iClient = TargetList[i]; 
 		if (IsClientInGame(iClient) && IsPlayerAlive(iClient)) 
 		{
-			SetEntProp(client, Prop_Send, "m_passiveItems", enable, 1, 1);
+			SetEntProp(iClient, Prop_Send, "m_passiveItems", enable, 1, 1);
 			ReplyToCommand(client, "Player %N %s exojump", iClient, enable==1?"received":"removed");
 		} 
 	}
