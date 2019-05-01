@@ -1,4 +1,4 @@
-/*  SM Give Players ExoJump
+/*  SM ExoJump Boots Giver
  *
  *  Copyright (C) 2019 Francisco 'Franc1sco' García
  * 
@@ -20,7 +20,7 @@
 
 public Plugin myinfo =
 {
-	name = "SM Give Players ExoJump",
+	name = "SM ExoJump Boots Giver",
 	author = "Franc1sco franug",
 	description = "",
 	version = "1.0",
